@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { Input, Select, Textarea } from '@/components/ui/input';
 import { send } from '@emailjs/browser';
-import { Button } from '../authui/button';
+import { Button } from '../ui/button';
 
 type FormData = {
     name: string;

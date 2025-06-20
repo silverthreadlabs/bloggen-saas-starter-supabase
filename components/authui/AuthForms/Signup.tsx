@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/authui/Button';
+import { Button } from '@/components/ui/button';
 import React from 'react';
 import Link from 'next/link';
 import { signUp } from '@/utils/auth-helpers/server';
@@ -33,7 +33,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
       >
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="text-canvas-text">Email</label>
             <input
               id="email"
               placeholder="name@example.com"
@@ -42,38 +42,40 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              className="w-full p-3 rounded-md bg-canvas-bg-subtle text-canvas-text-contrast border border-canvas-border focus:outline-none focus:ring-2 focus:ring-primary-solid focus:border-transparent transition-colors duration-200"
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-canvas-text">Password</label>
             <input
               id="password"
               placeholder="Password"
               type="password"
               name="password"
               autoComplete="current-password"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              className="w-full p-3 rounded-md bg-canvas-bg-subtle text-canvas-text-contrast border border-canvas-border focus:outline-none focus:ring-2 focus:ring-primary-solid focus:border-transparent transition-colors duration-200"
             />
           </div>
           <Button
-            variant="slim"
+            variant="solid"
+            color="primary"
             type="submit"
-            className="mt-1"
-            loading={isSubmitting}
+            className="mt-1 cursor-pointer"
+            isLoading={isSubmitting}
+            fullWidth={true}
           >
             Sign up
           </Button>
         </div>
       </form>
-      <p>Already have an account?</p>
-      <p>
-        <Link href="/signin/password_signin" className="font-light text-sm">
+      <p className="text-canvas-text">Already have an account?</p>
+      <p className="text-canvas-text">
+        <Link href="/signin/password_signin" className="font-light text-sm text-primary-text hover:text-primary-text-contrast transition-colors duration-200">
           Sign in with email and password
         </Link>
       </p>
       {allowEmail && (
-        <p>
-          <Link href="/signin/email_signin" className="font-light text-sm">
-            Sign in via magic link
+        <p className="text-canvas-text">
+          <Link href="/signin/email_signin" className="font-light text-sm text-primary-text hover:text-primary-text-contrast transition-colors duration-200">
+            Sign in with magic link
           </Link>
         </p>
       )}

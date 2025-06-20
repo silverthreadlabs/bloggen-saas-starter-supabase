@@ -14,7 +14,7 @@ const faqData: FAQItem[] = [
     {
         id: 1,
         question: 'What is bloggen-seo-starter?',
-        answer: "Bloggen SEO Starter is a production-ready Next.js 15 template designed for developers. It comes pre-configured with essential SEO features like JSON-LD, dynamic Open Graph images, sitemaps, robots.txt, and RSS feeds. Additionally, it supports MDX content, allowing seamless integration with bloggen.dev's AI-generated content."
+        answer: "Bloggen Subscription Starter Supabase is a production-ready Next.js 15 template designed for developers. It comes pre-configured with essential SEO features like JSON-LD, dynamic Open Graph images, sitemaps, robots.txt, and RSS feeds. Additionally, it supports MDX content, allowing seamless integration with bloggen.dev's AI-generated content."
     },
     {
         id: 2,
@@ -24,7 +24,7 @@ const faqData: FAQItem[] = [
     {
         id: 3,
         question: 'What SEO features are included out of the box?',
-        answer: 'Bloggen SEO Starter offers a suite of built-in SEO features, including:\n\n• JSON-LD structured data for enhanced search engine understanding.\n• Dynamic Open Graph images for improved social media sharing.\n• Pre-configured sitemaps and robots.txt files.\n• RSS feed generation for content syndication.\n• Optimized metadata handling for better search engine indexing.'
+        answer: 'Bloggen Subscription Starter Supabase offers a suite of built-in SEO features, including:\n\n• JSON-LD structured data for enhanced search engine understanding.\n• Dynamic Open Graph images for improved social media sharing.\n• Pre-configured sitemaps and robots.txt files.\n• RSS feed generation for content syndication.\n• Optimized metadata handling for better search engine indexing.'
     },
     {
         id: 4,

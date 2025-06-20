@@ -380,6 +380,10 @@
         padding: 0;
     }
 }
+.product-page #nd-docs-layout,
+.blog-page #nd-docs-layout {
+  margin-inline-start: 0 !important;
+}
 
 /* Fix figure width issues on blog pages */
 #nd-page article figure {

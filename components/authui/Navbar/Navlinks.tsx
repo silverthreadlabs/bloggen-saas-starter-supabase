@@ -33,7 +33,7 @@ export default function Navlinks({ user }: NavlinksProps) {
             <Logo />
           </Link>
 
-          <nav aria-label='Primary navigation' className='space-x-2 hidden xl:flex items-center'>
+          <nav aria-label='Primary navigation' className='space-x-2 hidden lg:flex items-center'>
             <ul className="flex space-x-3 items-center">
               <li key="pricing">
                 <Link
@@ -98,7 +98,7 @@ export default function Navlinks({ user }: NavlinksProps) {
             name='Toggle menu'
             aria-controls='mobile-menu'
             aria-expanded={mobileOpen}
-            className='block xl:hidden'
+            className='block lg:hidden'
             color='neutral'
             variant='ghost'
             iconOnly
@@ -121,7 +121,7 @@ export default function Navlinks({ user }: NavlinksProps) {
           aria-describedby='mobile-menu-description'
           role='dialog'
           aria-modal='true'
-          className='bg-canvas-base/95 sticky inset-0 top-[100px] z-50 h-screen backdrop-blur-sm xl:hidden transition-all duration-300 ease-in-out'>
+          className='bg-canvas-base/95 sticky inset-0 top-[100px] z-50 h-screen backdrop-blur-sm lg:hidden transition-all duration-300 ease-in-out'>
           <ul className='border-canvas-border space-y-3 border-t p-4'>
             <li>
               <Link

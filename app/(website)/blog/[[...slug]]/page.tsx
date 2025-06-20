@@ -107,7 +107,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
         return createPageMetadata({
             path: currentPath,
             description:
-                'Learn how to build, customize, and grow your site with Bloggen SEO Starter and Bloggen AI. Setup guides, tips, and SEO content strategies—all in one place.',
+                'Learn how to build, customize, and grow your site with Bloggen Subscription Starter Supabase and Bloggen AI. Setup guides, tips, and SEO content strategies—all in one place.',
             baseMetadata: defaultMetadata
         });
     }

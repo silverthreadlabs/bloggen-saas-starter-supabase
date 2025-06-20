@@ -1,7 +1,7 @@
-import Logo from '@/components/icons/Logo';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import {
   getAuthTypes,
   getViewTypes,
@@ -59,59 +59,94 @@ export default async function SignIn({
   }
 
   return (
-    <div className="flex justify-center height-screen-helper">
-      <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
-        <div className="flex justify-center pb-12 ">
-          <Logo width="64px" height="64px" />
+    <div className="min-h-screen flex flex-col">
+      {/* Animated background elements (simplified for theme consistency) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-1/2 -right-1/2 w-96 h-96 bg-primary-base/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-1/2 -left-1/2 w-96 h-96 bg-secondary-base/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/3 left-1/3 w-64 h-64 bg-primary-base/10 rounded-full blur-2xl animate-bounce"></div>
+      </div>
+
+      {/* Main content */}
+      <div className="flex-grow flex items-center justify-center px-4 py-12 relative z-10">
+        <div className="bg-canvas-bg/50 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden w-full sm:max-w-md md:max-w-lg lg:max-w-xl border border-canvas-border/50 relative">
+          {/* Gradient border effect (using theme colors) */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-base/20 via-primary-bg/20 to-secondary-base/20 rounded-3xl blur-sm -z-10"></div>
+
+          {/* Logo and title section */}
+          <div className="bg-canvas-bg-subtle py-8 px-8 text-center relative overflow-hidden">
+            {/* Background pattern */}
+            <div className="absolute inset-0 bg-canvas-solid/10"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+
+            <Link href="/" className="inline-block focus:ring-0 relative z-10">
+              <h1 className="flex bg-gradient-to-r from-blue-400 via-blue-500 to-purple-600 bg-clip-text text-3xl font-bold leading-relaxed font-bold tracking-normal text-transparent">
+                BlogGen Subscription Starter
+              </h1>
+            </Link>
+
+            {/* Subtitle */}
+            {/* <p className="text-canvas-text text-sm mt-2 relative z-10">
+              Choose from 130,000 online video courses with new additions published every second month
+            </p> */}
+          </div>
+
+          {/* Auth form section */}
+          <div className="p-8 relative">
+            {/* Glass effect overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+
+            <h2 className="text-2xl font-semibold text-canvas-text-contrast mb-8 text-center relative z-10">
+              {viewProp === 'forgot_password'
+                ? 'Reset Password'
+                : viewProp === 'update_password'
+                  ? 'Update Password'
+                  : viewProp === 'signup'
+                    ? 'Sign Up'
+                    : 'Login to Your Account'}
+            </h2>
+
+            <div className="relative z-10">
+              {viewProp === 'password_signin' && (
+                <PasswordSignIn
+                  allowEmail={allowEmail}
+                  redirectMethod={redirectMethod}
+                />
+              )}
+              {viewProp === 'email_signin' && (
+                <EmailSignIn
+                  allowPassword={true}
+                  redirectMethod={redirectMethod}
+                  disableButton={disable_button}
+                />
+              )}
+              {viewProp === 'forgot_password' && (
+                <ForgotPassword
+                  allowEmail={allowEmail}
+                  redirectMethod={redirectMethod}
+                />
+              )}
+              {viewProp === 'update_password' && (
+                <UpdatePassword
+                  redirectMethod={redirectMethod}
+                />
+              )}
+              {viewProp === 'signup' && (
+                <SignUp allowEmail={allowEmail} redirectMethod={redirectMethod} />
+              )}
+              {viewProp !== 'update_password' &&
+                viewProp !== 'signup' &&
+                allowOauth && (
+                  <>
+                    <div className="my-8">
+                      <Separator text="or continue with" />
+                    </div>
+                    <OauthSignIn />
+                  </>
+                )}
+            </div>
+          </div>
         </div>
-        <Card
-          title={
-            viewProp === 'forgot_password'
-              ? 'Reset Password'
-              : viewProp === 'update_password'
-                ? 'Update Password'
-                : viewProp === 'signup'
-                  ? 'Sign Up'
-                  : 'Sign In'
-          }
-        >
-          {viewProp === 'password_signin' && (
-            <PasswordSignIn
-              allowEmail={allowEmail}
-              redirectMethod={redirectMethod}
-            />
-          )}
-          {viewProp === 'email_signin' && (
-            <EmailSignIn
-              allowPassword={allowPassword}
-              redirectMethod={redirectMethod}
-              disableButton={disable_button}
-
-            />
-          )}
-          {viewProp === 'forgot_password' && (
-            <ForgotPassword
-              allowEmail={allowEmail}
-              redirectMethod={redirectMethod}
-              disableButton={disable_button}
-
-            />
-          )}
-          {viewProp === 'update_password' && (
-            <UpdatePassword redirectMethod={redirectMethod} />
-          )}
-          {viewProp === 'signup' && (
-            <SignUp allowEmail={allowEmail} redirectMethod={redirectMethod} />
-          )}
-          {viewProp !== 'update_password' &&
-            viewProp !== 'signup' &&
-            allowOauth && (
-              <>
-                <Separator text="Third-party sign-in" />
-                <OauthSignIn />
-              </>
-            )}
-        </Card>
       </div>
     </div>
   );

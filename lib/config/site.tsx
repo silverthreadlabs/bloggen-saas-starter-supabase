@@ -1,14 +1,14 @@
 import { getURL } from '@/lib/utils/url';
 
 export const siteConfig = {
-    title: 'Bloggen SEO Starter',
+    title: 'Bloggen Subscription Starter Supabase',
     description:
-        'Launch your agency site with Bloggen SEO Starter featuring Global Metadata Configuration, MDX products & blog pages, dynamic OG images, JSON-LD and more.',
+        'Launch your agency site with Bloggen Subscription Starter Supabase featuring Global Metadata Configuration, MDX products & blog pages, dynamic OG images, JSON-LD and more.',
     baseUrl: getURL(),
     creator: 'Silverthread Labs',
     publisher: 'Bloggen',
     keywords: [
-        'Bloggen SEO Starter',
+        'Bloggen Subscription Starter Supabase',
         'Bloggen',
         'SEO',
         'MDX',
@@ -21,7 +21,7 @@ export const siteConfig = {
         'Web Development'
     ],
     alternateNames: [
-        'bloggen seo Starter',
+        'bloggen Subscription Starter Supabase',
         'Bloggen SEO Template',
         'Bloggen Agency Starter',
         'Bloggen Agency Template'

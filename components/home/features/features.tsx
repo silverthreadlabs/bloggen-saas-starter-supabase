@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 
 interface Feature {
     id: number;
@@ -42,7 +42,7 @@ const featuresData: Feature[] = [
     }
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -53,7 +53,7 @@ const containerVariants = {
     }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
     hidden: {
         opacity: 0,
         x: -20,
