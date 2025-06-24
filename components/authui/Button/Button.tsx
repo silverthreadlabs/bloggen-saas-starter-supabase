@@ -39,6 +39,8 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
     },
     className
   );
+
+  
   return (
     <Component
       aria-pressed={active}

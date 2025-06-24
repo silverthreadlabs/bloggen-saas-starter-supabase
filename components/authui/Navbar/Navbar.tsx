@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import s from './Navbar.module.css';
 import Navlinks from './Navlinks';
+import type { User } from '@supabase/supabase-js';
 
 export default async function Navbar() {
   const supabase = await  createClient();

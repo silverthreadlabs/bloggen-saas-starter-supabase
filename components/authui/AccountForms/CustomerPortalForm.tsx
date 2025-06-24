@@ -32,7 +32,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
     subscription &&
     new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: subscription?.prices?.currency!,
+      currency: subscription?.prices?.currency ?? 'USD',
       minimumFractionDigits: 0
     }).format((subscription?.prices?.unit_amount || 0) / 100);
 
@@ -40,6 +40,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
     setIsSubmitting(true);
     const redirectUrl = await createStripePortal(currentPath);
     setIsSubmitting(false);
+
     return router.push(redirectUrl);
   };
 

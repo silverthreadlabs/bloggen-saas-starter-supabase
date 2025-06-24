@@ -42,6 +42,8 @@ export default async function SignIn({
     const preferredSignInView =
       cookieStore.get('preferredSignInView')?.value || null;
     viewProp = getDefaultSignInView(preferredSignInView);
+
+    
     return redirect(`/signin/${viewProp}`);
   }
 

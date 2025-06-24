@@ -16,6 +16,8 @@ export default function NameForm({ userName }: { userName: string }) {
     if (e.currentTarget.fullName.value === userName) {
       e.preventDefault();
       setIsSubmitting(false);
+
+      
       return;
     }
     handleRequest(e, updateName, router);

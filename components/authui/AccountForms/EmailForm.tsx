@@ -22,6 +22,8 @@ export default function EmailForm({
       e.preventDefault();
       setIsSubmitting(false);
       setIsEditing(false);
+
+      
       return;
     }
     await handleRequest(e, updateEmail, router);

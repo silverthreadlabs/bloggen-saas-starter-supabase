@@ -9,9 +9,10 @@ import { getRedirectMethod } from '@/utils/auth-helpers/settings';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
+import type { User } from '@supabase/supabase-js';
 
 interface NavlinksProps {
-  user?: any;
+  user?: User | null;
 }
 
 const NAV_ITEMS = [
