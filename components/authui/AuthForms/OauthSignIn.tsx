@@ -34,6 +34,7 @@ function SocialAuthButton({
       onSubmit={(e) => handleSubmit(e)}
       className="w-full"
     >
+      <input type="hidden" name="provider" value={provider} />
       <Button
         variant="outline"
         color="neutral"
