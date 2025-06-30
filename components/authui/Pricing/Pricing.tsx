@@ -50,6 +50,7 @@ export default function Pricing({ user, products, subscription }: Props) {
 
     if (!user) {
       setPriceIdLoading(undefined);
+
       return router.push('/signin/signup');
     }
 
@@ -60,11 +61,13 @@ export default function Pricing({ user, products, subscription }: Props) {
 
     if (errorRedirect) {
       setPriceIdLoading(undefined);
+
       return router.push(errorRedirect);
     }
 
     if (!sessionId) {
       setPriceIdLoading(undefined);
+
       return router.push(
         getErrorRedirect(
           currentPath,
@@ -81,6 +84,7 @@ export default function Pricing({ user, products, subscription }: Props) {
   };
 
   if (!products.length) {
+
     return (
       <section className="min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden">
         {/* Background Pattern */}
@@ -121,6 +125,7 @@ export default function Pricing({ user, products, subscription }: Props) {
       </section>
     );
   } else {
+
     return (
       <section className="min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden">
         {/* Background Elements */}
@@ -192,7 +197,9 @@ export default function Pricing({ user, products, subscription }: Props) {
                   const price = product?.prices?.find(
                     (price) => price.interval === billingInterval
                   );
-                  if (!price) return null;
+                  if (!price) 
+                    
+                    return null;
                   
                   const priceString = new Intl.NumberFormat('en-US', {
                     style: 'currency',
