@@ -71,7 +71,7 @@ export default async function SignIn({
 
       {/* Main content */}
       <div className="flex-grow flex items-center justify-center px-4 py-12 relative z-10">
-        <div className="bg-canvas-bg/50 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden w-full sm:max-w-md md:max-w-lg lg:max-w-xl border border-canvas-border/50 relative">
+        <div className="w-auto md:w-[500px] mx-auto bg-canvas-bg/50 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-canvas-border/50 relative">
           {/* Gradient border effect (using theme colors) */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-base/20 via-primary-bg/20 to-secondary-base/20 rounded-3xl blur-sm -z-10"></div>
 
@@ -80,17 +80,6 @@ export default async function SignIn({
             {/* Background pattern */}
             <div className="absolute inset-0 bg-canvas-solid/10"></div>
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
-
-            <Link href="/" className="inline-block focus:ring-0 relative z-10">
-              <h1 className="flex bg-gradient-to-r from-blue-400 via-blue-500 to-purple-600 bg-clip-text text-3xl font-bold leading-relaxed font-bold tracking-normal text-transparent">
-                BlogGen Subscription Starter
-              </h1>
-            </Link>
-
-            {/* Subtitle */}
-            {/* <p className="text-canvas-text text-sm mt-2 relative z-10">
-              Choose from 130,000 online video courses with new additions published every second month
-            </p> */}
           </div>
 
           {/* Auth form section */}

@@ -50,8 +50,6 @@ export default function Pricing({ user, products, subscription }: Props) {
 
     if (!user) {
       setPriceIdLoading(undefined);
-
-
       return router.push('/signin/signup');
     }
 
@@ -62,15 +60,11 @@ export default function Pricing({ user, products, subscription }: Props) {
 
     if (errorRedirect) {
       setPriceIdLoading(undefined);
-
-
       return router.push(errorRedirect);
     }
 
     if (!sessionId) {
       setPriceIdLoading(undefined);
-
-      
       return router.push(
         getErrorRedirect(
           currentPath,
@@ -139,19 +133,15 @@ export default function Pricing({ user, products, subscription }: Props) {
         <div className="relative z-10 py-8 sm:py-12">
           {/* Header Section */}
           <div className="text-center px-6 sm:px-8 lg:px-12 mb-12">
-            <div className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-primary-solid/10 to-primary-solid/5 border border-primary-solid/20 rounded-full text-primary-solid font-medium text-sm mb-6 backdrop-blur-sm">
-              ✨ Choose Your Perfect Plan
-            </div>
-            
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-canvas-text-contrast mb-4 tracking-tight leading-tight">
-              Pricing That
+              Choose Your
               <span className="block bg-gradient-to-r from-primary-solid to-primary-solid/70 bg-clip-text text-transparent">
-                Scales With You
+                Perfect Plan
               </span>
             </h1>
             
             <p className="max-w-3xl mx-auto text-lg sm:text-xl text-canvas-text leading-relaxed mb-8">
-              Start building for free, then add a site plan to go live. Account plans unlock additional features and premium support.
+              Transform your ideas into reality with our flexible pricing options designed to grow with your business.
             </p>
 
             {/* Billing Toggle */}
@@ -163,7 +153,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                   className={cn(
                     'relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform',
                     billingInterval === 'month'
-                      ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary shadow-lg scale-105'
+                      ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary shadow-lg'
                       : 'text-canvas-text hover:text-canvas-text-contrast hover:bg-canvas-bg/50'
                   )}
                 >
@@ -177,7 +167,7 @@ export default function Pricing({ user, products, subscription }: Props) {
                   className={cn(
                     'relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform',
                     billingInterval === 'year'
-                      ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary shadow-lg scale-105'
+                      ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary shadow-lg'
                       : 'text-canvas-text hover:text-canvas-text-contrast hover:bg-canvas-bg/50'
                   )}
                 >
@@ -188,135 +178,164 @@ export default function Pricing({ user, products, subscription }: Props) {
             </div> */}
           </div>
 
-          {/* Pricing Cards */}
+          {/* Pricing Cards - Dynamic Centering */}
           <div className="px-6 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-none">
-              {products.map((product, index) => {
-                const price = product?.prices?.find(
-                  (price) => price.interval === billingInterval
-                );
-                if (!price) return null;
-                
-                const priceString = new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: price.currency!,
-                  minimumFractionDigits: 0
-                }).format((price?.unit_amount || 0) / 100);
-                
-                const isPopular = product.name === 'Freelancer';
-                const isCurrentPlan = subscription?.prices?.products?.name === product.name;
+            <div className="flex justify-center">
+              <div className={cn(
+                'w-full',
+                products.length === 1 && 'max-w-md',
+                products.length === 2 && 'max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8',
+                products.length === 3 && 'max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
+                products.length >= 4 && 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'
+              )}>
+                {products.map((product, index) => {
+                  const price = product?.prices?.find(
+                    (price) => price.interval === billingInterval
+                  );
+                  if (!price) return null;
+                  
+                  const priceString = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: price.currency!,
+                    minimumFractionDigits: 0
+                  }).format((price?.unit_amount || 0) / 100);
+                  
+                  const isPopular = product.name === 'Freelancer';
+                  const isCurrentPlan = subscription?.prices?.products?.name === product.name;
 
-                return (
-                  <div
-                    key={product.id}
-                    className={cn(
-                      'relative group flex flex-col bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-6 transition-all duration-300 transform   hover:shadow-2xl border',
-                      {
-                        'border-primary-solid bg-gradient-to-br from-primary-solid/5 to-primary-solid/10 shadow-xl shadow-primary-solid/20': isPopular || isCurrentPlan,
-                        'border-canvas-border/50 hover:border-canvas-border': !isPopular && !isCurrentPlan
-                      }
-                    )}
-                  >
-                    {/* Popular Badge */}
-                    {isPopular && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-gradient-to-r from-primary-solid to-primary-solid/80 text-primary-on-primary px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
-                          Most Popular
+                  return (
+                    <div
+                      key={product.id}
+                      className={cn(
+                        'relative group flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform hover:shadow-2xl border',
+                        {
+                          'border-primary-solid bg-gradient-to-br from-primary-solid/10 via-primary-solid/5 to-primary-solid/2 shadow-xl shadow-primary-solid/20 ring-2 ring-primary-solid/30': isPopular || isCurrentPlan,
+                          'border-canvas-border/50 hover:border-primary-solid/40': !isPopular && !isCurrentPlan
+                        }
+                      )}
+                    >
+                      {/* Popular Badge */}
+                      {isPopular && (
+                        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                          <div className="bg-gradient-to-r from-primary-solid via-primary-solid/90 to-primary-solid/80 text-primary-on-primary px-8 py-3 rounded-full text-sm font-bold shadow-lg">
+                            ⭐ Most Popular
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    {/* Current Plan Badge */}
-                    {isCurrentPlan && (
-                      <div className="absolute -top-4 right-4">
-                        <div className="bg-green-500 text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg">
-                          Current Plan
+                      {/* Current Plan Badge */}
+                      {isCurrentPlan && (
+                        <div className="absolute -top-4 right-4">
+                          <div className="bg-green-500 text-white px-5 py-2 rounded-full text-xs font-semibold shadow-lg">
+                            ✓ Current Plan
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    <div className="flex-1">
-                      {/* Plan Header */}
-                      <div className="mb-6">
-                        <h3 className="text-xl font-bold text-canvas-text-contrast mb-2">
-                          {product.name}
-                        </h3>
-                        <p className="text-canvas-text leading-relaxed text-sm">
-                          {product.description}
-                        </p>
-                      </div>
-
-                      {/* Pricing */}
-                      <div className="mb-6">
-                        <div className="flex items-baseline">
-                          <span className="text-4xl font-black text-canvas-text-contrast">
-                            {priceString}
-                          </span>
-                          <span className="ml-2 text-base text-canvas-text font-medium">
-                            /{billingInterval}
-                          </span>
-                        </div>
-                        {billingInterval === 'year' && (
-                          <p className="text-xs text-green-400 mt-1">
-                            Save {Math.round(((12 * (price?.unit_amount || 0)) - (price?.unit_amount || 0)) / (12 * (price?.unit_amount || 0)) * 100)}% annually
+                      <div className="flex-1">
+                        {/* Plan Header */}
+                        <div className="mb-8">
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-2xl font-bold text-canvas-text-contrast">
+                              {product.name}
+                            </h3>
+                            <div className="w-12 h-12 bg-gradient-to-br from-primary-solid/20 to-primary-solid/10 rounded-xl flex items-center justify-center">
+                              <svg className="w-6 h-6 text-primary-solid" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                            </div>
+                          </div>
+                          <p className="text-canvas-text leading-relaxed text-base">
+                            {product.description}
                           </p>
-                        )}
+                        </div>
+
+                        {/* Pricing */}
+                        <div className="mb-8">
+                          <div className="flex items-baseline mb-3">
+                            <span className="text-5xl font-black text-canvas-text-contrast">
+                              {priceString}
+                            </span>
+                            <span className="ml-3 text-lg text-canvas-text font-medium">
+                              /{billingInterval}
+                            </span>
+                          </div>
+                          {billingInterval === 'year' && (
+                            <div className="inline-flex items-center px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-lg">
+                              <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                              <p className="text-sm text-green-400 font-medium">
+                                Save {Math.round(((12 * (price?.unit_amount || 0)) - (price?.unit_amount || 0)) / (12 * (price?.unit_amount || 0)) * 100)}% annually
+                              </p>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* CTA Button */}
-                    <div className="mt-auto">
-                      <Button
-                        variant="slim"
-                        type="button"
-                        loading={priceIdLoading === price.id}
-                        onClick={() => handleStripeCheckout(price)}
-                        className={cn(
-                          'w-full py-3 text-sm font-semibold rounded-2xl cursor-pointer transition-all duration-200 transform   shadow-lg',
-                          isPopular || isCurrentPlan
-                            ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary hover:shadow-xl hover:shadow-primary-solid/30'
-                            : 'bg-canvas-bg-subtle border-2 border-canvas-border text-canvas-text-contrast hover:bg-canvas-bg hover:border-primary-solid/50'
-                        )}
-                      >
-                        {subscription ? 'Manage Plan' : 'Get Started'}
-                      </Button>
-                    </div>
+                      {/* CTA Button */}
+                      <div className="mt-auto">
+                        <Button
+                          variant="slim"
+                          type="button"
+                          loading={priceIdLoading === price.id}
+                          onClick={() => handleStripeCheckout(price)}
+                          className={cn(
+                            'w-full py-4 text-base font-semibold rounded-2xl cursor-pointer transition-all duration-300 transform shadow-lg',
+                            isPopular || isCurrentPlan
+                              ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary hover:shadow-xl hover:shadow-primary-solid/30'
+                              : 'bg-gradient-to-r from-canvas-bg-subtle to-canvas-bg border-2 border-canvas-border text-canvas-text-contrast hover:bg-canvas-bg hover:border-primary-solid/50'
+                          )}
+                        >
+                          {subscription ? 'Manage Plan' : 'Get Started'}
+                        </Button>
+                      </div>
 
-                    {/* Hover Effect */}
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                  </div>
-                );
-              })}
+                      {/* Hover Effect */}
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
           {/* Bottom CTA Section */}
-          <div className="mt-16 text-center px-6 sm:px-8 lg:px-12">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold text-canvas-text-contrast mb-3">
-                Need a custom solution?
+          <div className="mt-20 text-center px-6 sm:px-8 lg:px-12">
+            <div className="max-w-5xl mx-auto bg-gradient-to-br from-canvas-bg-subtle/80 via-canvas-bg-subtle/60 to-canvas-bg-subtle/40 backdrop-blur-sm border border-canvas-border/30 rounded-3xl p-8 sm:p-12">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-solid/20 to-primary-solid/10 rounded-2xl mb-6">
+                <svg className="w-8 h-8 text-primary-solid" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-canvas-text-contrast mb-4">
+                Need something custom?
               </h2>
-              <p className="text-lg text-canvas-text mb-6">
-                Contact our team for enterprise pricing and custom features tailored to your needs.
+              <p className="text-lg text-canvas-text mb-8 max-w-2xl mx-auto">
+                Get in touch for enterprise solutions, volume discounts, and custom integrations designed for your business.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <div className="flex items-center gap-2 text-canvas-text text-sm">
-                  <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  24/7 Priority Support
+              <div className="flex flex-wrap justify-center gap-6 mb-8">
+                <div className="flex items-center gap-3 text-canvas-text">
+                  <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="font-medium">24/7 Priority Support</span>
                 </div>
-                <div className="flex items-center gap-2 text-canvas-text text-sm">
-                  <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Custom Integrations
+                <div className="flex items-center gap-3 text-canvas-text">
+                  <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Custom Integrations</span>
                 </div>
-                <div className="flex items-center gap-2 text-canvas-text text-sm">
-                  <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Dedicated Account Manager
+                <div className="flex items-center gap-3 text-canvas-text">
+                  <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="font-medium">Dedicated Account Manager</span>
                 </div>
               </div>
             </div>

@@ -17,7 +17,6 @@ const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(SUBJECT)}&body=${en
 
 const NAV_ITEMS = [
     { href: '/about', label: 'About' },
-    { href: '/products', label: 'Products' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
     { href: '/terms', label: 'Terms' }

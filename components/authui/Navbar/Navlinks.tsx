@@ -16,8 +16,7 @@ interface NavlinksProps {
 }
 
 const NAV_ITEMS = [
-    { href: '/about', label: 'About' },
-    { href: '/products', label: 'Products' },
+    { href: '/feature', label: 'Feature' },
     { href: '/blog', label: 'Blog' }
 ];
 
@@ -64,14 +63,6 @@ export default function Navlinks({ user }: NavlinksProps) {
                   </Link>
                 </li>
               )}
-              <li key="contact">
-                <Link
-                  href='/contact'
-                  className='text-canvas-text hover:text-canvas-text-contrast rounded-sm px-3 py-2 text-base font-medium transition-colors'
-                >
-                  Contact
-                </Link>
-              </li>
               {user ? (
                 <li key="signout">
                   <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
@@ -157,13 +148,6 @@ export default function Navlinks({ user }: NavlinksProps) {
             )}
             <li>
               <div className='flex flex-col gap-3'>
-                <Link
-                  href='/contact'
-                  onClick={toggleMobile}
-                  className='text-canvas-text hover:bg-canvas-bg hover:text-primary-text block rounded-sm px-4 py-2 text-base font-medium transition-colors'
-                >
-                  Contact
-                </Link>
                 {user ? (
                   <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
                     <input type="hidden" name="pathName" value={usePathname()} />

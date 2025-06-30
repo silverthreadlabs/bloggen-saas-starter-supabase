@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import FeaturesList from '@/components/about/feature-list';
+import FeaturesList from '@/components/feature/feature-list';
 import { createPageMetadata } from '@/lib/seo/metadata/create-page-metadata';
 
 export const metadata: Metadata = createPageMetadata({
@@ -10,7 +10,7 @@ export const metadata: Metadata = createPageMetadata({
         'Launch a fully optimized Next.js site with Bloggen Subscription Starter Supabase, then create high-quality, SEO-friendly content effortlessly using Bloggen AI.'
 });
 
-export default function AboutPage() {
+export default function FeaturePage() {
     return (
         <main role='main' className='min-h-screen'>
             <script
