@@ -13,6 +13,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import './global.css';
 import { RootProvider } from 'fumadocs-ui/provider';        
 import Navbar from '@/components/authui/Navbar';
+import { Toaster } from '@/components/authui/Toasts/toaster';
 
 const manrope = Manrope({
     subsets: ['latin'],
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <Footer />
                     </main>
                 </ThemeProvider>
+                <Toaster />
                 {/* <Script
           src="https://analytics.ahrefs.com/analytics.js"
           strategy="lazyOnload"
