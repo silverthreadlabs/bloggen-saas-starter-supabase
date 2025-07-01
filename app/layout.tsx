@@ -54,7 +54,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <Footer />
                     </main>
                 </ThemeProvider>
-                <Toaster />
+                <Suspense fallback={null}>
+                    <Toaster />
+                </Suspense>
                 {/* <Script
           src="https://analytics.ahrefs.com/analytics.js"
           strategy="lazyOnload"
