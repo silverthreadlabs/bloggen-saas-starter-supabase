@@ -1,14 +1,14 @@
 import { getURL } from '@/lib/utils/url';
 
 export const siteConfig = {
-    title: 'Bloggen Subscription Starter Supabase',
+    title: 'Bloggen Saas Starter Supabase',
     description:
-        'Launch your agency site with Bloggen Subscription Starter Supabase featuring Global Metadata Configuration, MDX products & blog pages, dynamic OG images, JSON-LD and more.',
+        'Launch your agency site with Bloggen Saas Starter Supabase featuring Global Metadata Configuration, MDX products & blog pages, dynamic OG images, JSON-LD and more.',
     baseUrl: getURL(),
     creator: 'Silverthread Labs',
     publisher: 'Bloggen',
     keywords: [
-        'Bloggen Subscription Starter Supabase',
+        'Bloggen Saas Starter Supabase',
         'Bloggen',
         'SEO',
         'MDX',
@@ -21,7 +21,7 @@ export const siteConfig = {
         'Web Development'
     ],
     alternateNames: [
-        'bloggen Subscription Starter Supabase',
+        'bloggen Saas Starter Supabase',
         'Bloggen SEO Template',
         'Bloggen Agency Starter',
         'Bloggen Agency Template'
@@ -43,6 +43,6 @@ export const siteConfig = {
         sameAs: []
     },
     sitemap: {
-        staticRoutes: ['', '/contact', '/about', '/blog', '/products']
+        staticRoutes: ['', '/contact', '/about', '/blog']
     }
 };

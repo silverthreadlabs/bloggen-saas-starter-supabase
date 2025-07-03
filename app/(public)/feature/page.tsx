@@ -7,7 +7,7 @@ import { createPageMetadata } from '@/lib/seo/metadata/create-page-metadata';
 export const metadata: Metadata = createPageMetadata({
     path: 'about',
     description:
-        'Launch a fully optimized Next.js site with Bloggen Subscription Starter Supabase, then create high-quality, SEO-friendly content effortlessly using Bloggen AI.'
+        'Launch a fully optimized Next.js site with Bloggen Saas Starter Supabase, then create high-quality, SEO-friendly content effortlessly using Bloggen AI.'
 });
 
 export default function FeaturePage() {

@@ -6,15 +6,15 @@ import type { WebSite, WithContext } from 'schema-dts';
 
 const baseURL = siteConfig.baseUrl;
 const silverthreadLabsURL = 'https://www.silverthreadlabs.com';
-const SITE_TITLE = 'Bloggen Subscription Starter Supabase';
+const SITE_TITLE = 'Bloggen Saas Starter Supabase';
 
 const homeSchema: WithContext<WebSite> = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Bloggen Subscription Starter Supabase',
-    alternateName: ['bloggen Subscription Starter Supabase', 'Bloggen SEO Template', 'Bloggen Agency Starter', 'Bloggen Agency Template'],
+    name: 'Bloggen Saas Starter Supabase',
+    alternateName: ['bloggen Saas Starter Supabase', 'Bloggen SEO Template', 'Bloggen Agency Starter', 'Bloggen Agency Template'],
     description:
-        'Launch your agency site with Bloggen Subscription Starter Supabase featuring  Global Metadata Configuration, MDX products & blog pages, dynamic OG images, JSON-LD and more.',
+        'Launch your agency site with Bloggen Saas Starter Supabase featuring  Global Metadata Configuration, MDX products & blog pages, dynamic OG images, JSON-LD and more.',
     url: baseURL, // Dynamically uses your base URL
     publisher: {
         '@type': 'Organization',

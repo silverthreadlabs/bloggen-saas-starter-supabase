@@ -26,11 +26,12 @@ interface Props {
   user: unknown | null | undefined;
   products: ProductWithPrices[];
   subscription: SubscriptionWithProduct | null;
+  variant?: 'default' | 'home';
 }
 
 type BillingInterval = 'lifetime' | 'year' | 'month';
 
-export default function Pricing({ user, products, subscription }: Props) {
+export default function Pricing({ user, products, subscription, variant = 'default' }: Props) {
   console.log('Products received by client Pricing component:', products);
   const intervals = Array.from(
     new Set(
@@ -84,9 +85,12 @@ export default function Pricing({ user, products, subscription }: Props) {
   };
 
   if (!products.length) {
-
     return (
-      <section className="min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden">
+      <section className={
+        variant === 'home'
+          ? 'py-20 w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
+          : 'min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
+      }>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-r from-primary-solid/10 to-transparent"></div>
@@ -125,9 +129,12 @@ export default function Pricing({ user, products, subscription }: Props) {
       </section>
     );
   } else {
-
     return (
-      <section className="min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden">
+      <section className={
+        variant === 'home'
+          ? 'py-20 w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
+          : 'min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
+      }>
         {/* Background Elements */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-solid/20 to-transparent rounded-full blur-3xl"></div>
