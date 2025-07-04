@@ -1,6 +1,6 @@
 {
-  "name": "Silverthread Labs",
-  "short_name": "Silverthread Labs",
+  "name": "Bloggen Saas Starter",
+  "short_name": "Bloggen Saas Starter",
 
     "icons": [
       { "src": "/favicon/favicon.ico", "type": "image/x-icon", "sizes": "16x16 32x32" },
