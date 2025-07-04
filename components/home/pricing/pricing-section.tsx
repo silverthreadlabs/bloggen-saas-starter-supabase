@@ -137,6 +137,7 @@ export default function HomePricingSection({ products, user, subscription }: Pro
               const price = product.prices?.find((price) => price.interval === billingInterval);
               if (!price) return null;
               const priceDisplay = price.unit_amount !== null ? `$${(price.unit_amount / 100).toFixed(0)}` : 'Free';
+              
               return (
                 <motion.div
                   key={product.id}
