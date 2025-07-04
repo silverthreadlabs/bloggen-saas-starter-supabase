@@ -23,6 +23,16 @@ export default function HomePricingSection({ products, user, subscription }: Pro
   const router = useRouter();
   const currentPath = usePathname();
 
+  // Billing interval toggle state
+  const intervals = Array.from(
+    new Set(
+      products.flatMap((product) =>
+        product?.prices?.map((price) => price?.interval)
+      )
+    )
+  );
+  const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month');
+
   const handleStripeCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
 
@@ -87,123 +97,129 @@ export default function HomePricingSection({ products, user, subscription }: Pro
             <p className="text-canvas-text mb-8 text-xl leading-relaxed font-normal tracking-normal md:text-2xl max-w-3xl mx-auto">
               Simple, transparent pricing that scales with your business needs.
             </p>
+            {/* Billing Toggle */}
+            <div className="inline-flex items-center bg-canvas-bg-subtle/80 backdrop-blur-sm border border-canvas-border/50 rounded-2xl p-2 shadow-xl mb-8">
+              {intervals.includes('month') && (
+                <button
+                  onClick={() => setBillingInterval('month')}
+                  type="button"
+                  className={
+                    billingInterval === 'month'
+                      ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary shadow-lg px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform'
+                      : 'text-canvas-text hover:text-canvas-text-contrast hover:bg-canvas-bg/50 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform'
+                  }
+                >
+                  Monthly
+                </button>
+              )}
+              {intervals.includes('year') && (
+                <button
+                  onClick={() => setBillingInterval('year')}
+                  type="button"
+                  className={
+                    billingInterval === 'year'
+                      ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary shadow-lg px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform'
+                      : 'text-canvas-text hover:text-canvas-text-contrast hover:bg-canvas-bg/50 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform'
+                  }
+                >
+                  <span>Yearly</span>
+                  <span className="ml-2 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-md">Save 20%</span>
+                </button>
+              )}
+            </div>
           </motion.div>
 
           {/* Pricing Cards */}
-          <div className="flex justify-center">
-            <div className={`
-              grid gap-8 w-full
-              ${products.length === 1 ? 'max-w-md' : ''}
-              ${products.length === 2 ? 'max-w-4xl grid-cols-1 md:grid-cols-2' : ''}
-              ${products.length === 3 ? 'max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : ''}
-              ${products.length >= 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : ''}
-            `}>
-              {products?.map((product, index) => {
-                const isPopular = index === 1 || product.name?.toLowerCase().includes('pro') || product.name?.toLowerCase().includes('popular');
-                const isCurrentPlan = subscription?.price_id && product.prices?.some(p => p.id === subscription.price_id);
-                
-                return (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className={`
-                      relative group transition-all duration-300
-                      ${isPopular ? 'lg:-translate-y-2' : ''}
-                    `}
-                  >
-               
-
-                    {/* Current Plan Badge */}
-                    {isCurrentPlan && (
-                      <div className="absolute -top-4 right-4 z-20">
-                        <div className="bg-success-solid text-success-on-success px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                          Current Plan
-                        </div>
-                      </div>
-                    )}
-
-                    <div className={`
-                      relative h-full rounded-2xl p-8 transition-all duration-300 group-hover:shadow-xl
-                      ${isPopular 
-                        ? 'bg-canvas-bg-subtle border-primary-solid border-2 shadow-lg' 
-                        : 'bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md'
-                      }
-                    `}>
-                      <div className="h-full flex flex-col">
-                        {/* Header */}
-                        <div className="mb-8">
-                          <h3 className="text-canvas-text-contrast text-2xl font-bold mb-3">
-                            {product.name}
-                          </h3>
-                          <p className="text-canvas-text leading-relaxed">
-                            {product.description}
-                          </p>
-                        </div>
-
-                        {/* Pricing */}
-                        <div className="mb-8 flex-1">
-                          {product.prices?.map((price: Price) => {
-                            const priceDisplay = price.unit_amount !== null ? `$${(price.unit_amount / 100).toFixed(0)}` : 'Free';
-                            
-                            return (
-                              <div key={price.id} className="mb-6 last:mb-0">
-                                <div className="flex items-baseline mb-3">
-                                  <span className="text-canvas-text-contrast text-5xl font-bold">
-                                    {priceDisplay}
-                                  </span>
-                                  <span className="ml-2 text-canvas-text text-lg font-normal">
-                                    /{price.interval}
-                                  </span>
-                                </div>
-                                
-                                {price.interval === 'year' && price.unit_amount && (
-                                  <div className="inline-flex items-center px-3 py-1 bg-success-bg border border-success-border rounded-full mb-4">
-                                    <span className="text-success-text text-sm font-medium">
-                                      Save 20% annually
-                                    </span>
-                                  </div>
-                                )}
-                                
-                                <Button
-                                  color="primary"
-                                  variant="solid"
-                                  size="lg"
-                                  fullWidth
-                                  isLoading={priceIdLoading === price.id}
-                                  onClick={() => handleStripeCheckout(price)}
-                                  disabled={priceIdLoading === price.id}
-                                  className="!cursor-pointer"
-                                >
-                                  {subscription ? 'Manage Plan' : 'Get Started'}
-                                </Button>
-                              </div>
-                            );
-                          })}
-                        </div>
-
-                        {/* Features */}
-                        <div className="mt-auto pt-6 border-t border-canvas-border">
-                          <div className="flex items-center text-sm text-canvas-text">
-                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Full access to all features</span>
-                          </div>
-                          <div className="flex items-center text-sm text-canvas-text mt-2">
-                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>24/7 Customer Support</span>
-                          </div>
-                        </div>
+          <div className="flex flex-wrap justify-center items-start gap-8 w-full max-w-6xl mx-auto">
+            {products?.map((product, index) => {
+              const isPopular = index === 1 || product.name?.toLowerCase().includes('pro') || product.name?.toLowerCase().includes('popular');
+              const isCurrentPlan = subscription?.price_id && product.prices?.some(p => p.id === subscription.price_id);
+              const price = product.prices?.find((price) => price.interval === billingInterval);
+              if (!price) return null;
+              const priceDisplay = price.unit_amount !== null ? `$${(price.unit_amount / 100).toFixed(0)}` : 'Free';
+              return (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className={`
+                    relative group transition-all duration-300
+                    ${isPopular ? 'lg:-translate-y-2' : ''}
+                    w-80 min-w-[360px] max-w-sm flex flex-col p-8 rounded-3xl
+                    ${isPopular 
+                      ? 'bg-canvas-bg-subtle border-primary-solid border-2 shadow-lg' 
+                      : 'bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md'
+                    }
+                  `}
+                >
+                  {/* Current Plan Badge */}
+                  {isCurrentPlan && (
+                    <div className="absolute -top-4 right-4 z-20">
+                      <div className="bg-success-solid text-success-on-success px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                        Current Plan
                       </div>
                     </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                  )}
+                  <div className="h-full flex flex-col">
+                    {/* Header */}
+                    <div className="mb-8">
+                      <h3 className="text-canvas-text-contrast text-2xl font-bold mb-3">
+                        {product.name}
+                      </h3>
+                      <p className="text-canvas-text leading-relaxed">
+                        {product.description}
+                      </p>
+                    </div>
+                    {/* Pricing */}
+                    <div className="mb-8 flex-1">
+                      <div className="flex items-baseline mb-3">
+                        <span className="text-canvas-text-contrast text-5xl font-bold">
+                          {priceDisplay}
+                        </span>
+                        <span className="ml-2 text-canvas-text text-lg font-normal">
+                          /{billingInterval}
+                        </span>
+                      </div>
+                      {billingInterval === 'year' && price.unit_amount && (
+                        <div className="inline-flex items-center px-3 py-1 bg-success-bg border border-success-border rounded-full mb-4">
+                          <span className="text-success-text text-sm font-medium">
+                            Save 20% annually
+                          </span>
+                        </div>
+                      )}
+                      <Button
+                        color="primary"
+                        variant="solid"
+                        size="lg"
+                        fullWidth
+                        isLoading={priceIdLoading === price.id}
+                        onClick={() => handleStripeCheckout(price)}
+                        disabled={priceIdLoading === price.id}
+                        className="!cursor-pointer"
+                      >
+                        {subscription ? 'Manage Plan' : 'Get Started'}
+                      </Button>
+                    </div>
+                    {/* Features */}
+                    <div className="mt-auto pt-6 border-t border-canvas-border">
+                      <div className="flex items-center text-sm text-canvas-text">
+                        <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Full access to all features</span>
+                      </div>
+                      <div className="flex items-center text-sm text-canvas-text mt-2">
+                        <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>24/7 Customer Support</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Bottom Trust Indicators */}

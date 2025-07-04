@@ -193,13 +193,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
           {/* Pricing Cards - Dynamic Centering */}
           <div className="px-6 sm:px-8 lg:px-12">
             <div className="flex justify-center">
-              <div className={cn(
-                'w-full',
-                products.length === 1 && 'max-w-md',
-                products.length === 2 && 'max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8',
-                products.length === 3 && 'max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
-                products.length >= 4 && 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'
-              )}>
+              <div className="flex flex-wrap justify-center items-start gap-8 w-full max-w-6xl mx-auto">
                 {products.map((product, index) => {
                   const price = product?.prices?.find(
                     (price) => price.interval === billingInterval
@@ -221,7 +215,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                     <div
                       key={product.id}
                       className={cn(
-                        'relative group flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border',
+                        'relative group w-80 min-w-[360px] max-w-sm flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border',
                         {
                           'border-primary-solid ring-2 ring-primary-solid/30': isPopular || isCurrentPlan,
                           'border-canvas-border/50 hover:border-primary-solid/40': !isPopular && !isCurrentPlan
