@@ -3,10 +3,8 @@
 import React, { useState } from 'react';
 
 import Link from 'next/link';
-
 import { Button } from '@/components/ui/button';
 import FeatureCard from '@/components/ui/feature-card';
-
 import features from './features-list';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaCheck, FaCopy, FaGithub } from 'react-icons/fa';

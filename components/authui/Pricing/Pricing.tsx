@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/authui/Button';
+import { Button } from '@/components/ui/button';
 import type { Tables } from '@/types_db';
 import { getStripe } from '@/utils/stripe/client';
 import { checkoutWithStripe } from '@/utils/stripe/server';
@@ -145,19 +145,19 @@ export default function Pricing({ user, products, subscription, variant = 'defau
         <div className="relative z-10 py-8 sm:py-12">
           {/* Header Section */}
           <div className="text-center px-6 sm:px-8 lg:px-12 mb-12">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-canvas-text-contrast mb-4 tracking-tight leading-tight">
+            <h1 className="text-canvas-text-contrast mb-6 text-4xl leading-tight font-bold tracking-tight md:text-6xl">
               Choose Your
-              <span className="block bg-gradient-to-r from-primary-solid to-primary-solid/70 bg-clip-text text-transparent">
+              <span className="from-primary-solid via-primary-text to-primary-text-contrast bg-gradient-to-r bg-clip-text text-transparent">
+                <br />
                 Perfect Plan
               </span>
             </h1>
-            
-            <p className="max-w-3xl mx-auto text-lg sm:text-xl text-canvas-text leading-relaxed mb-8">
+            <p className="max-w-3xl mx-auto text-canvas-text mb-8 text-xl leading-relaxed font-normal tracking-normal md:text-2xl">
               Transform your ideas into reality with our flexible pricing options designed to grow with your business.
             </p>
 
             {/* Billing Toggle */}
-            {/* <div className="inline-flex items-center bg-canvas-bg-subtle/80 backdrop-blur-sm border border-canvas-border/50 rounded-2xl p-2 shadow-xl">
+            <div className="inline-flex items-center bg-canvas-bg-subtle/80 backdrop-blur-sm border border-canvas-border/50 rounded-2xl p-2 shadow-xl">
               {intervals.includes('month') && (
                 <button
                   onClick={() => setBillingInterval('month')}
@@ -187,7 +187,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                   <span className="ml-2 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-md">Save 20%</span>
                 </button>
               )}
-            </div> */}
+            </div>
           </div>
 
           {/* Pricing Cards - Dynamic Centering */}
@@ -221,9 +221,9 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                     <div
                       key={product.id}
                       className={cn(
-                        'relative group flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform hover:shadow-2xl border',
+                        'relative group flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border',
                         {
-                          'border-primary-solid bg-gradient-to-br from-primary-solid/10 via-primary-solid/5 to-primary-solid/2 shadow-xl shadow-primary-solid/20 ring-2 ring-primary-solid/30': isPopular || isCurrentPlan,
+                          'border-primary-solid ring-2 ring-primary-solid/30': isPopular || isCurrentPlan,
                           'border-canvas-border/50 hover:border-primary-solid/40': !isPopular && !isCurrentPlan
                         }
                       )}
@@ -288,23 +288,21 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                       {/* CTA Button */}
                       <div className="mt-auto">
                         <Button
-                          variant="slim"
+                          color="primary"
+                          variant="solid"
+                          size="lg"
+                          fullWidth
                           type="button"
-                          loading={priceIdLoading === price.id}
+                          isLoading={priceIdLoading === price.id}
                           onClick={() => handleStripeCheckout(price)}
-                          className={cn(
-                            'w-full py-4 text-base font-semibold rounded-2xl cursor-pointer transition-all duration-300 transform shadow-lg',
-                            isPopular || isCurrentPlan
-                              ? 'bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary hover:shadow-xl hover:shadow-primary-solid/30'
-                              : 'bg-gradient-to-r from-canvas-bg-subtle to-canvas-bg border-2 border-canvas-border text-canvas-text-contrast hover:bg-canvas-bg hover:border-primary-solid/50'
-                          )}
+                          className="!cursor-pointer"
                         >
                           {subscription ? 'Manage Plan' : 'Get Started'}
                         </Button>
                       </div>
 
                       {/* Hover Effect */}
-                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none"></div>
                     </div>
                   );
                 })}

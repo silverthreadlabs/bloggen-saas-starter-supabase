@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/authui/Button';
+import { Button } from '@/components/ui/button';
 import { updateEmail } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
@@ -32,7 +32,7 @@ export default function EmailForm({
   };
 
   return (
-    <div className="relative group bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-6 transition-all duration-300 hover:shadow-xl border border-canvas-border/50 hover:border-primary-solid/30">
+    <div className="relative group bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-6 transition-all duration-300 border border-canvas-border/50 hover:border-primary-solid/30">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-3">
@@ -48,14 +48,19 @@ export default function EmailForm({
             </p>
           </div>
           {!isEditing && (
-            <button
+            <Button
+              iconOnly
+              variant="ghost"
+              color="neutral"
+              aria-label="Edit email"
+              name="Edit email"
+              leadingIcon={
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              }
               onClick={() => setIsEditing(true)}
-              className="p-2 rounded-lg hover:bg-canvas-bg-subtle/50 transition-colors duration-200 text-canvas-text/60 hover:text-canvas-text-contrast"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-              </svg>
-            </button>
+            />
           )}
         </div>
       </div>
@@ -105,18 +110,18 @@ export default function EmailForm({
           </div>
           <div className="flex gap-3">
             <Button
-              variant="slim"
+              variant="surface"
               onClick={() => setIsEditing(false)}
               className="!bg-canvas-bg-subtle !border-2 !border-canvas-border cursor-pointer !text-canvas-text-contrast hover:!bg-canvas-bg hover:!border-canvas-border/70 px-4 py-2 rounded-xl font-medium transition-all duration-200"
             >
               Cancel
             </Button>
             <Button
-              variant="slim"
+              variant="surface"
               type="submit"
               form="emailForm"
-              loading={isSubmitting}
-              className="!bg-gradient-to-r !from-primary-solid cursor-pointer !to-primary-solid/90 !text-primary-on-primary hover:!shadow-lg !border-0 px-6 py-2 rounded-xl font-semibold transition-all duration-200 transform"
+              isLoading={isSubmitting}
+              className="!bg-gradient-to-r !from-primary-solid cursor-pointer !to-primary-solid/90 !text-primary-on-primary  !border-0 px-6 py-2 rounded-xl font-semibold transition-all duration-200 transform"
             >
               {isSubmitting ? 'Updating...' : 'Update Email'}
             </Button>
@@ -125,7 +130,7 @@ export default function EmailForm({
       )}
 
       {/* Hover Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 }

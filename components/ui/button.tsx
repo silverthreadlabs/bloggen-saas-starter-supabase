@@ -1,7 +1,6 @@
 //v3
 import { memo } from 'react';
 import * as React from 'react';
-
 import { Slot } from '@radix-ui/react-slot';
 
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -150,7 +149,7 @@ const buttonVariants = cva(
             // Loading state styles
             {
                 isLoading: true,
-                class: 'relative !cursor-wait'
+                class: 'relative'
             }
         ],
         defaultVariants: {

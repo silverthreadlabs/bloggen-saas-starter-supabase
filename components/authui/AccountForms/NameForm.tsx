@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/authui/Button';
+import { Button } from '@/components/ui/button';
 import { updateName } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
@@ -25,7 +25,7 @@ export default function NameForm({ userName }: { userName: string }) {
   };
 
   return (
-    <div className="relative group bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-6 transition-all duration-300 hover:shadow-xl border border-canvas-border/50 hover:border-primary-solid/30">
+    <div className="relative group bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-6 transition-all duration-300 border border-canvas-border/50 hover:border-primary-solid/30">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-3">
@@ -71,18 +71,18 @@ export default function NameForm({ userName }: { userName: string }) {
           64 characters maximum
         </div>
         <Button
-          variant="slim"
+          variant="surface"
           type="submit"
           form="nameForm"
-          loading={isSubmitting}
-          className="!bg-gradient-to-r !from-primary-solid !to-primary-solid/90 !text-primary-on-primary hover:!shadow-lg !border-0 px-6 py-3 rounded-xl font-semibold transition-all duration-200 transform  "
+          isLoading={isSubmitting}
+          className="!bg-gradient-to-r !from-primary-solid !to-primary-solid/90 !text-primary-on-primary !border-0 px-6 py-3 rounded-xl font-semibold transition-all duration-200 transform  "
         >
           {isSubmitting ? 'Updating...' : 'Update Name'}
         </Button>
       </div>
 
       {/* Hover Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0  transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 }

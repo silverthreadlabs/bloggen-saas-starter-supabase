@@ -16,7 +16,7 @@ interface NavlinksProps {
 }
 
 const NAV_ITEMS = [
-    { href: '/feature', label: 'Feature' },
+    { href: '/feature', label: 'Features' },
     { href: '/blog', label: 'Blog' }
 ];
 

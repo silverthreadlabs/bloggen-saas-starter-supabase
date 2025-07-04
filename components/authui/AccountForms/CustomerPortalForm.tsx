@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/authui/Button';
+import { Button } from '@/components/ui/button';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { createStripePortal } from '@/utils/stripe/server';
@@ -45,7 +45,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
   };
 
   return (
-    <div className="relative group bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 hover:shadow-2xl border border-canvas-border/50 hover:border-primary-solid/30">
+    <div className="relative group bg-gradient-to-br from-canvas-bg-subtle/80 to-canvas-bg-subtle/40 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 border border-canvas-border/50 hover:border-primary-solid/30">
       {/* Status Indicator */}
       <div className="absolute -top-3 left-8">
         <div className={`px-4 py-2 rounded-full text-xs font-semibold shadow-lg ${
@@ -111,8 +111,8 @@ export default function CustomerPortalForm({ subscription }: Props) {
               <h4 className="text-xl font-bold text-canvas-text-contrast mb-2">Ready to get started?</h4>
               <p className="text-canvas-text mb-4">Choose a plan that fits your needs and unlock all features.</p>
               <Link 
-                href="/" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary rounded-xl font-semibold hover:shadow-lg transition-all duration-200 transform  "
+                href="/pricing" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-solid to-primary-solid/90 text-primary-on-primary rounded-xl font-semibold  transition-all duration-200 transform  "
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -136,9 +136,9 @@ export default function CustomerPortalForm({ subscription }: Props) {
             </p>
           </div>
           <Button
-            variant="slim"
+            variant="surface"
             onClick={handleStripePortalRequest}
-            loading={isSubmitting}
+            isLoading={isSubmitting}
             className="!bg-canvas-bg-subtle cursor-pointer !border-2 !border-canvas-border !text-canvas-text-contrast hover:!bg-canvas-bg hover:!border-primary-solid/50 px-6 py-3 rounded-xl font-semibold transition-all duration-200"
           >
             {isSubmitting ? 'Opening...' : 'Open Customer Portal'}
@@ -147,7 +147,7 @@ export default function CustomerPortalForm({ subscription }: Props) {
       )}
 
       {/* Hover Effect */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 }
