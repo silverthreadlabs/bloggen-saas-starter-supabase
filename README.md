@@ -15,7 +15,7 @@
 
 - https://subscription-payments.vercel.app/
 
-[![Screenshot of demo](./public/demo.png)](https://subscription-payments.vercel.app/)
+[![Screenshot of demo](./public/demo.png)](https://subscription-payments.vercel.app/) 
 
 ## Architecture
 
