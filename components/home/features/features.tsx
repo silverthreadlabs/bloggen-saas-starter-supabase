@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 
 interface Feature {
@@ -9,6 +8,12 @@ interface Feature {
     title: string;
     description: string;
     details: string;
+    category: string;
+    benefit: string;
+    stats: {
+        value: string;
+        label: string;
+    }[];
 }
 
 const featuresData: Feature[] = [
@@ -16,29 +21,49 @@ const featuresData: Feature[] = [
         id: 1,
         title: 'Plug‑in MDX',
         description: 'Instant Content Integration',
-        details:
-            'Bloggen AI exports MDX posts that drop straight into the /content folder - no edits needed. Your content renders instantly, making content management seamless and efficient.'
+        details: 'Bloggen AI exports MDX posts that drop straight into the /content folder - no edits needed. Your content renders instantly, making content management seamless and efficient.',
+        category: 'Content',
+        benefit: 'Zero configuration required',
+        stats: [
+            { value: '2x', label: 'Faster Setup' },
+            { value: '100%', label: 'Compatible' }
+        ]
     },
     {
         id: 2,
-        title: 'Designrift Tshemeing',
+        title: 'Designrift Theming',
         description: 'Powerful Theme Creation',
-        details:
-            'Create stunning themes for your web application leveraging Radix color palettes for cohesive styling. Build beautiful, consistent user interfaces with our comprehensive theming system.'
+        details: 'Create stunning themes for your web application leveraging Radix color palettes for cohesive styling. Build beautiful, consistent user interfaces with our comprehensive theming system.',
+        category: 'Design',
+        benefit: 'Professional UI components',
+        stats: [
+            { value: '50+', label: 'Themes' },
+            { value: '∞', label: 'Customizable' }
+        ]
     },
     {
         id: 3,
         title: 'SEO All Set',
         description: 'Complete SEO Infrastructure',
-        details:
-            'Launch with confidence knowing all SEO essentials are pre-configured. From sitemaps and robots.txt to JSON-LD and dynamic OG images, plus an RSS feed - everything is pre-wired.'
+        details: 'Launch with confidence knowing all SEO essentials are pre-configured. From sitemaps and robots.txt to JSON-LD and dynamic OG images, plus an RSS feed - everything is pre-wired.',
+        category: 'Performance',
+        benefit: 'Rank higher on search engines',
+        stats: [
+            { value: '98/100', label: 'SEO Score' },
+            { value: '3x', label: 'More Traffic' }
+        ]
     },
     {
         id: 4,
         title: 'One‑Command Launch',
         description: 'Effortless Deployment',
-        details:
-            'Get started in seconds with a single command: npx create-bloggen-app. Push to Vercel and your typed Next.js 15 template goes live immediately.'
+        details: 'Get started in seconds with a single command: npx create-bloggen-app. Push to Vercel and your typed Next.js 15 template goes live immediately.',
+        category: 'Developer',
+        benefit: 'Production-ready in seconds',
+        stats: [
+            { value: '30s', label: 'Deploy Time' },
+            { value: '99.9%', label: 'Uptime' }
+        ]
     }
 ];
 
@@ -47,8 +72,8 @@ const containerVariants: Variants = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
+            staggerChildren: 0.08,
+            delayChildren: 0.1
         }
     }
 };
@@ -56,138 +81,174 @@ const containerVariants: Variants = {
 const itemVariants: Variants = {
     hidden: {
         opacity: 0,
-        x: -20,
+        y: 40,
         scale: 0.95
     },
     visible: {
         opacity: 1,
-        x: 0,
+        y: 0,
         scale: 1,
         transition: {
             type: 'spring',
-            stiffness: 100,
-            damping: 12
+            stiffness: 120,
+            damping: 20
         }
     }
 };
 
 export default function Features() {
-    const [activeFeature, setActiveFeature] = useState<number>(1);
+    const [activeTab, setActiveTab] = useState<string>('all');
+    const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
-    const handleFeatureHover = (featureId: number) => {
-        setActiveFeature(featureId);
-    };
-
-    const currentFeature = featuresData.find((feature) => feature.id === activeFeature) || featuresData[0];
+    const categories = ['all', 'Content', 'Design', 'Performance', 'Developer'];
+    const filteredFeatures = activeTab === 'all' 
+        ? featuresData 
+        : featuresData.filter(feature => feature.category === activeTab);
 
     return (
-        <section className='py:10 w-full px-4 sm:px-6 lg:px-8 xl:py-16'>
-            <div className='mx-auto mb-16 max-w-7xl'>
-                {/* Header */}
+        <section className='relative py-20 w-full px-4 sm:px-6 lg:px-8 xl:py-32 overflow-hidden'>
+            
+            <div className='relative mx-auto max-w-7xl'>
+                {/* Header Section */}
                 <motion.div
-                    className='mb-16 text-center'
+                    className='text-center mb-16'
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-100px' }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}>
-                    <h2 className='text-canvas-text-contrast mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl'>
-                        Powerful Features
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}>
+            
+
+                    <h2 className='text-canvas-text-contrast text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6'>
+                        Built for{' '}
+                            <span className='from-primary-solid via-primary-text to-primary-text-contrast bg-gradient-to-r bg-clip-text text-transparent'>
+                                scale
+                            </span>
                     </h2>
-                    <p className='text-canvas-text mx-auto max-w-2xl text-lg text-balance'>
-                        Discover the tools and capabilities that make our platform the perfect solution for your needs.
+
+                    <p className='text-canvas-text text-xl sm:text-2xl max-w-4xl mx-auto leading-relaxed'>
+                        Everything you need to build, deploy, and scale your next project. 
+                        From zero to production in minutes, not hours.
                     </p>
                 </motion.div>
 
-                {/* Features Content */}
-                <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
-                    {/* Feature List - Left Side */}
-                    <motion.div
-                        className='space-y-2'
-                        variants={containerVariants}
-                        initial='hidden'
-                        whileInView='visible'
-                        viewport={{ once: true, margin: '-50px' }}>
-                        {featuresData.map((feature) => {
-                            const isActive = feature.id === activeFeature;
+                {/* Features Grid */}
+                <motion.div
+                    className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16'
+                    variants={containerVariants}
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{ once: true }}>
+                    <AnimatePresence mode='wait'>
+                        {filteredFeatures.map((feature) => (
+                            <motion.div
+                                key={feature.id}
+                                variants={itemVariants}
+                                layout
+                                onMouseEnter={() => setHoveredFeature(feature.id)}
+                                onMouseLeave={() => setHoveredFeature(null)}
+                                className={`group relative p-8 rounded-3xl border transition-all duration-500 ${
+                                    hoveredFeature === feature.id
+                                        ? 'border-primary-solid bg-primary-bg shadow-2xl shadow-primary-solid/20 transform'
+                                        : 'border-canvas-line bg-canvas-bg hover:border-primary-border hover:bg-primary-bg-subtle'
+                                }`}>
+                                
+                                {/* Category Badge */}
+                                <div className='flex items-center justify-between mb-6'>
+                                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${
+                                        hoveredFeature === feature.id
+                                            ? 'bg-primary-solid text-white'
+                                            : 'bg-canvas-bg-subtle text-canvas-text'
+                                    }`}>
+                                        {feature.category}
+                                    </span>
+                                    
+                                    {/* Floating indicator */}
+                                    {hoveredFeature === feature.id && (
+                                        <motion.div
+                                            className='w-3 h-3 bg-primary-solid rounded-full'
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ type: 'spring', stiffness: 300 }}
+                                        />
+                                    )}
+                                </div>
 
-                            return (
-                                <motion.div
-                                    key={feature.id}
-                                    variants={itemVariants}
-                                    onMouseEnter={() => handleFeatureHover(feature.id)}
-                                    className={`group cursor-pointer rounded-lg border-l-4 p-6 transition-all duration-300 ease-out hover:shadow-md ${
-                                        isActive
-                                            ? 'border-primary-solid from-primary-bg to-primary-bg-subtle text-primary-text-contrast bg-gradient-to-r'
-                                            : 'border-canvas-line bg-canvas-bg hover:border-primary-border hover:bg-primary-bg-subtle'
-                                    }`}
-                                    whileHover={{
-                                        scale: 1.01,
-                                        transition: { type: 'spring', stiffness: 400, damping: 25 }
-                                    }}
-                                    whileTap={{ scale: 0.98 }}>
-                                    <motion.h3
-                                        className={`text-xl font-semibold tracking-wide transition-colors duration-300 ${
-                                            isActive
-                                                ? 'text-primary-text-contrast'
-                                                : 'text-canvas-text-contrast group-hover:text-primary-text-contrast'
-                                        }`}
-                                        layout>
+                                {/* Feature Content */}
+                                <div className='mb-8'>
+                                    <h3 className={`text-2xl font-bold mb-3 transition-colors duration-300 ${
+                                        hoveredFeature === feature.id
+                                            ? 'text-primary-text-contrast'
+                                            : 'text-canvas-text-contrast'
+                                    }`}>
                                         {feature.title}
-                                    </motion.h3>
-                                </motion.div>
-                            );
-                        })}
-                    </motion.div>
+                                    </h3>
+                                    
+                                    <p className={`text-lg font-medium mb-4 transition-colors duration-300 ${
+                                        hoveredFeature === feature.id
+                                            ? 'text-primary-text-contrast'
+                                            : 'text-canvas-text-contrast'
+                                    }`}>
+                                        {feature.description}
+                                    </p>
+                                    
+                                    <p className={`text-sm leading-relaxed transition-colors duration-300 ${
+                                        hoveredFeature === feature.id
+                                            ? 'text-primary-text-contrast/80'
+                                            : 'text-canvas-text'
+                                    }`}>
+                                        {feature.details}
+                                    </p>
+                                </div>
 
-                    {/* Feature Description - Right Side */}
-                    <div className='flex items-center'>
-                        <div className='w-full'>
-                            <AnimatePresence mode='wait'>
-                                <motion.div
-                                    key={currentFeature.id}
-                                    variants={{
-                                        initial: { opacity: 0, y: 20 },
-                                        animate: { opacity: 1, y: 0 },
-                                        exit: { opacity: 0, y: -20 }
-                                    }}
-                                    initial='initial'
-                                    animate='animate'
-                                    exit='exit'
-                                    transition={{ duration: 0.2, ease: 'easeIn' }}
-                                    className='border-canvas-active hover:border-canvas-line bg-canvas-base max-h-80 cursor-default rounded-2xl border p-10 shadow-lg'>
-                                    {/* Feature Badge */}
+                                {/* Stats */}
+                                <div className='flex items-center gap-6 mb-6'>
+                                    {feature.stats.map((stat, index) => (
+                                        <div key={index} className='text-center'>
+                                            <div className={`text-2xl font-bold transition-colors duration-300 ${
+                                                hoveredFeature === feature.id
+                                                    ? 'text-primary-text-contrast'
+                                                    : 'text-canvas-text-contrast'
+                                            }`}>
+                                                {stat.value}
+                                            </div>
+                                            <div className={`text-xs transition-colors duration-300 ${
+                                                hoveredFeature === feature.id
+                                                    ? 'text-primary-text-contrast/70'
+                                                    : 'text-canvas-text'
+                                            }`}>
+                                                {stat.label}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Benefit */}
+                                <div className={`flex items-center gap-2 text-sm font-medium transition-colors duration-300 ${
+                                    hoveredFeature === feature.id
+                                        ? 'text-primary-text-contrast'
+                                        : 'text-canvas-text'
+                                }`}>
+                                    <div className={`w-2 h-2 rounded-full ${
+                                        hoveredFeature === feature.id
+                                            ? 'bg-primary-text-contrast'
+                                            : 'bg-primary-solid'
+                                    }`} />
+                                    {feature.benefit}
+                                </div>
+
+                                {/* Hover Effect Overlay */}
+                                {hoveredFeature === feature.id && (
                                     <motion.div
-                                        className='mb-6'
+                                        className='absolute inset-0 bg-gradient-to-br from-primary-solid/10 via-transparent to-primary-solid/5 rounded-3xl pointer-events-none'
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.3 }}>
-                                        <span className='bg-primary-bg text-primary-text-contrast inline-flex items-center rounded-xl px-3 py-2 text-sm font-medium'>
-                                            {currentFeature.title}
-                                        </span>
-                                    </motion.div>
-
-                                    {/* Feature Title */}
-                                    <motion.h3
-                                        className='text-canvas-text-contrast mb-4 text-2xl font-bold sm:text-3xl'
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.3 }}>
-                                        {currentFeature.description}
-                                    </motion.h3>
-
-                                    {/* Feature Details */}
-                                    <motion.p
-                                        className='text-canvas-text mb-6 text-lg leading-relaxed'
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.3 }}>
-                                        {currentFeature.details}
-                                    </motion.p>
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </div>
+                                        transition={{ duration: 0.3 }}
+                                    />
+                                )}
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             </div>
         </section>
     );

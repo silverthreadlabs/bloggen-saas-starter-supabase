@@ -75,13 +75,6 @@ export default async function SignIn({
           {/* Gradient border effect (using theme colors) */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-base/20 via-primary-bg/20 to-secondary-base/20 rounded-3xl blur-sm -z-10"></div>
 
-          {/* Logo and title section */}
-          <div className="bg-canvas-bg-subtle py-8 px-8 text-center relative overflow-hidden">
-            {/* Background pattern */}
-            <div className="absolute inset-0 bg-canvas-solid/10"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
-          </div>
-
           {/* Auth form section */}
           <div className="p-8 relative">
             {/* Glass effect overlay */}

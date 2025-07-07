@@ -6,8 +6,8 @@ import LogoCloud from './logo-cloud';
 
 export default function Performance() {
     return (
-        <section className='px-4 sm:px-6 md:px-8 lg:px-0'>
-            <div className='mx-auto max-w-7xl py-10 xl:py-16'>
+        <section className='px-4 sm:px-6 lg:px-8 py-16 xl:py-24'>
+            <div className='mx-auto max-w-7xl'>
                 {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ export default function Performance() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className='text-center'>
+                    className='text-center w-full'>
                     <LogoCloud />
                 </motion.div>
             </div>

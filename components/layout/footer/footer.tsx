@@ -18,8 +18,9 @@ const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(SUBJECT)}&body=${en
 const NAV_ITEMS = [
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/terms', label: 'Terms' }
+    { href: '/faq', label: 'Faq' },
+    { href: '/terms', label: 'Terms' },
+    { href: '/policy', label: 'Policy' }
 ];
 
 const title = 'Silverthread Labs';

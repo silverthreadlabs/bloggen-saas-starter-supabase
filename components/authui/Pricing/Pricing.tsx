@@ -88,8 +88,8 @@ export default function Pricing({ user, products, subscription, variant = 'defau
     return (
       <section className={
         variant === 'home'
-          ? 'py-20 w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
-          : 'min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
+          ? 'overflow-hidden px-4 sm:px-6 md:px-8 lg:px-0 py-20 w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative'
+          : 'overflow-hidden px-4 sm:px-6 md:px-8 lg:px-0 min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative'
       }>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
@@ -97,7 +97,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]"></div>
         </div>
         
-        <div className="relative z-10 flex items-center justify-center min-h-screen px-6 sm:px-8 lg:px-12">
+        <div className="relative z-10 flex items-center justify-center min-h-screen mx-auto max-w-7xl">
           <div className="text-center max-w-4xl">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-solid to-primary-solid/80 rounded-2xl mb-8 shadow-2xl">
               <svg className="w-10 h-10 text-primary-on-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,8 +132,8 @@ export default function Pricing({ user, products, subscription, variant = 'defau
     return (
       <section className={
         variant === 'home'
-          ? 'py-20 w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
-          : 'min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative overflow-hidden'
+          ? 'overflow-hidden px-4 sm:px-6 md:px-8 lg:px-0 py-20 w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative'
+          : 'overflow-hidden px-4 sm:px-6 md:px-8 lg:px-0 min-h-screen w-full bg-gradient-to-br from-canvas-bg via-canvas-bg-subtle to-canvas-bg relative'
       }>
         {/* Background Elements */}
         <div className="absolute inset-0 opacity-30">
@@ -142,7 +142,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.05),transparent_70%)]"></div>
         </div>
 
-        <div className="relative z-10 py-8 sm:py-12">
+        <div className="relative z-10 py-8 sm:py-12 mx-auto max-w-7xl">
           {/* Header Section */}
           <div className="text-center px-6 sm:px-8 lg:px-12 mb-12">
             <h1 className="text-canvas-text-contrast mb-6 text-4xl leading-tight font-bold tracking-tight md:text-6xl">
@@ -191,9 +191,9 @@ export default function Pricing({ user, products, subscription, variant = 'defau
           </div>
 
           {/* Pricing Cards - Dynamic Centering */}
-          <div className="px-6 sm:px-8 lg:px-12">
-            <div className="flex justify-center">
-              <div className="flex flex-wrap justify-center items-start gap-8 w-full max-w-6xl mx-auto">
+          <div className="w-full">
+            <div className="flex justify-center w-full">
+              <div className="flex flex-wrap justify-center items-start gap-8 w-full">
                 {products.map((product, index) => {
                   const price = product?.prices?.find(
                     (price) => price.interval === billingInterval
@@ -215,10 +215,9 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                     <div
                       key={product.id}
                       className={cn(
-                        'relative group w-80 min-w-[360px] max-w-sm flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border',
+                        'relative group flex-1 min-w-[320px] max-w-[400px] flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border border-canvas-border/50 hover:border-primary-solid/40',
                         {
-                          'border-primary-solid ring-2 ring-primary-solid/30': isPopular || isCurrentPlan,
-                          'border-canvas-border/50 hover:border-primary-solid/40': !isPopular && !isCurrentPlan
+                          // No special border for popular/current plan
                         }
                       )}
                     >

@@ -130,9 +130,8 @@ export default function HomePricingSection({ products, user, subscription }: Pro
           </motion.div>
 
           {/* Pricing Cards */}
-          <div className="flex flex-wrap justify-center items-start gap-8 w-full max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center items-start gap-8 w-full">
             {products?.map((product, index) => {
-              const isPopular = index === 1 || product.name?.toLowerCase().includes('pro') || product.name?.toLowerCase().includes('popular');
               const isCurrentPlan = subscription?.price_id && product.prices?.some(p => p.id === subscription.price_id);
               const price = product.prices?.find((price) => price.interval === billingInterval);
               if (!price) return null;
@@ -146,12 +145,8 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   className={`
                     relative group transition-all duration-300
-                    ${isPopular ? 'lg:-translate-y-2' : ''}
-                    w-80 min-w-[360px] max-w-sm flex flex-col p-8 rounded-3xl
-                    ${isPopular 
-                      ? 'bg-canvas-bg-subtle border-primary-solid border-2 shadow-lg' 
-                      : 'bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md'
-                    }
+                    flex-1 min-w-[320px] max-w-[400px] flex flex-col p-8 rounded-3xl
+                    bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md
                   `}
                 >
                   {/* Current Plan Badge */}
