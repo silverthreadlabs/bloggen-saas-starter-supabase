@@ -7,6 +7,8 @@ import { signUp } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import OauthSignIn from '@/components/authui/AuthForms/OauthSignIn';
+import Separator from '@/components/authui/AuthForms/Separator';
 
 // Define prop type with allowEmail boolean
 interface SignUpProps {
@@ -66,6 +68,10 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
           </Button>
         </div>
       </form>
+      <div className="my-8">
+        <Separator text="or continue with" />
+        <OauthSignIn />
+      </div>
       <p className="text-canvas-text">Already have an account?</p>
       <p className="text-canvas-text">
         <Link href="/signin/password_signin" className="font-light text-sm text-primary-text hover:text-primary-text-contrast transition-colors duration-200">
