@@ -7,6 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Product = Tables<'products'> & { prices: Tables<'prices'>[] };
 type Price = Tables<'prices'>;
@@ -38,8 +39,7 @@ export default function HomePricingSection({ products, user, subscription }: Pro
 
     if (!user) {
       setPriceIdLoading(undefined);
-
-
+      
       return router.push('/signin/signup');
     }
 
@@ -51,13 +51,12 @@ export default function HomePricingSection({ products, user, subscription }: Pro
     if (errorRedirect) {
       setPriceIdLoading(undefined);
 
-
       return router.push(errorRedirect);
     }
 
     if (!sessionId) {
       setPriceIdLoading(undefined);
-      
+
       return router.push(
         getErrorRedirect(
           currentPath,
@@ -130,7 +129,13 @@ export default function HomePricingSection({ products, user, subscription }: Pro
           </motion.div>
 
           {/* Pricing Cards */}
-          <div className="flex flex-wrap justify-center items-start gap-8 w-full">
+          <motion.div
+            key={billingInterval} // Trigger animation on billing interval change
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-wrap justify-center items-stretch gap-8 w-full"
+          >
             {products?.map((product, index) => {
               const isCurrentPlan = subscription?.price_id && product.prices?.some(p => p.id === subscription.price_id);
               const price = product.prices?.find((price) => price.interval === billingInterval);
@@ -146,7 +151,7 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                   className={`
                     relative group transition-all duration-300
                     flex-1 min-w-[320px] max-w-[400px] flex flex-col p-8 rounded-3xl
-                    bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md
+                    bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md h-[540px]
                   `}
                 >
                   {/* Current Plan Badge */}
@@ -157,33 +162,37 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                       </div>
                     </div>
                   )}
-                  <div className="h-full flex flex-col">
-                    {/* Header */}
-                    <div className="mb-8">
-                      <h3 className="text-canvas-text-contrast text-2xl font-bold mb-3">
-                        {product.name}
-                      </h3>
-                      <p className="text-canvas-text leading-relaxed">
-                        {product.description}
-                      </p>
-                    </div>
-                    {/* Pricing */}
-                    <div className="mb-8 flex-1">
-                      <div className="flex items-baseline mb-3">
-                        <span className="text-canvas-text-contrast text-5xl font-bold">
-                          {priceDisplay}
-                        </span>
-                        <span className="ml-2 text-canvas-text text-lg font-normal">
-                          /{billingInterval}
-                        </span>
+                  <div className="flex flex-col h-full">
+                    <div className="flex-1 flex flex-col">
+                      {/* Header */}
+                      <div className="mb-8">
+                        <h3 className="text-canvas-text-contrast text-2xl font-bold mb-3">
+                          {product.name}
+                        </h3>
+                        <p className="text-canvas-text leading-relaxed">
+                          {product.description}
+                        </p>
                       </div>
-                      {billingInterval === 'year' && price.unit_amount && (
-                        <div className="inline-flex items-center px-3 py-1 bg-success-bg border border-success-border rounded-full mb-4">
-                          <span className="text-success-text text-sm font-medium">
-                            Save 20% annually
+                      {/* Pricing */}
+                      <div className="mb-8">
+                        <div className="flex items-baseline mb-3">
+                          <span className="text-canvas-text-contrast text-5xl font-bold">
+                            {priceDisplay}
+                          </span>
+                          <span className="ml-2 text-canvas-text text-lg font-normal">
+                            /{billingInterval}
                           </span>
                         </div>
-                      )}
+                        {billingInterval === 'year' && price.unit_amount && (
+                          <div className="inline-flex items-center px-3 py-1 bg-success-bg border border-success-border rounded-full mb-4">
+                            <span className="text-success-text text-sm font-medium">
+                              Save 20% annually
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="mt-auto">
                       <Button
                         color="primary"
                         variant="solid"
@@ -198,25 +207,76 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                       </Button>
                     </div>
                     {/* Features */}
-                    <div className="mt-auto pt-6 border-t border-canvas-border">
-                      <div className="flex items-center text-sm text-canvas-text">
-                        <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span>Full access to all features</span>
-                      </div>
-                      <div className="flex items-center text-sm text-canvas-text mt-2">
-                        <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span>24/7 Customer Support</span>
-                      </div>
+                    <div className="pt-6 border-canvas-border">
+                      <ul className="space-y-2">
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Easy Pay</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Secure Method</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Full access to all features</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>24/7 Customer Support</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>GDPR Compliant</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Priority Email Support</li>
+                      </ul>
                     </div>
                   </div>
                 </motion.div>
               );
             })}
-          </div>
+            {/* Enterprise Card */}
+            <motion.div
+              key="enterprise"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: (products?.length || 0) * 0.1 }}
+              className={`
+                relative group transition-all duration-300
+                flex-1 min-w-[320px] max-w-[400px] flex flex-col p-8 rounded-3xl
+                bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md h-[540px]
+              `}
+            >
+              <div className="flex flex-col h-full">
+                <div className="flex-1 flex flex-col">
+                  {/* Header */}
+                  <div className="mb-8">
+                    <h3 className="text-canvas-text-contrast text-2xl font-bold mb-3">ENTERPRISE</h3>
+                    <p className="text-canvas-text leading-relaxed">
+                      For large-scale applications running Internet scale workloads.
+                    </p>
+                  </div>
+                  {/* Pricing */}
+                  <div className="mb-8">
+                    <div className="flex items-baseline mb-3">
+                      <span className="text-canvas-text-contrast text-5xl font-bold">Custom</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-auto">
+                  <Link href="/contact">
+                    <Button
+                      color="neutral"
+                      variant="outline"
+                      size="lg"
+                      fullWidth
+                      type="button"
+                      className="!cursor-pointer"
+                    >
+                      Contact Us
+                    </Button>
+                  </Link>
+                </div>
+                {/* Features */}
+                <div className="pt-6 border-canvas-border">
+                  <ul className="space-y-2">
+                    <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Designated Support manager</li>
+                    <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Uptime SLAs</li>
+                    <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>BYO Cloud supported</li>
+                    <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>24x7x365 premium enterprise support</li>
+                    <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Private Slack channel</li>
+                    <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Custom Security Questionnaires</li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
 
           {/* Bottom Trust Indicators */}
           <motion.div

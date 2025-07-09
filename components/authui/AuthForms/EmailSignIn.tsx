@@ -36,18 +36,20 @@ export default function EmailSignIn({
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="grid gap-2">
-          <div className="grid gap-1">
-            <label htmlFor="email" className="text-canvas-text">Email</label>
-            <input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              name="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              className="w-full p-3 rounded-md bg-canvas-bg-subtle text-canvas-text-contrast border border-canvas-border focus:outline-none focus:ring-2 focus:ring-primary-solid focus:border-transparent transition-colors duration-200"
-            />
+          <div className="grid gap-4">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="email" className="text-canvas-text">Email</label>
+              <input
+                id="email"
+                placeholder="name@example.com"
+                type="email"
+                name="email"
+                autoCapitalize="none"
+                autoComplete="email"
+                autoCorrect="off"
+                className="w-full p-3 rounded-md bg-canvas-bg-subtle text-canvas-text-contrast border border-canvas-border focus:outline-none focus:ring-2 focus:ring-primary-solid focus:border-transparent transition-colors duration-200"
+              />
+            </div>
           </div>
           <Button
             variant="solid"

@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaCheck, FaCopy, FaGithub, FaPlay, FaStar, FaUsers, FaRocket, FaCode } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Hero() {
     const [copied, setCopied] = useState(false);
@@ -92,24 +94,36 @@ export default function Hero() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.5 }}>
                             
-                            <motion.button
-                                className='group cursor-pointer relative px-8 py-4 bg-primary-solid text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3'
-                                >
-                                <FaPlay className='w-4 h-4' />
+                            <Button
+                                className='group cursor-pointer relative font-semibold shadow-lg hover:shadow-xl flex items-center gap-3 px-8 py-4 rounded-2xl'
+                                color='primary'
+                                variant='solid'
+                                size='lg'
+                                leadingIcon={<FaPlay className='w-4 h-4' />}
+                                trailingIcon={<FaArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />}
+                            >
                                 Start Building Now
-                                <FaArrowRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
                                 <div className='absolute inset-0 bg-gradient-to-r from-primary-solid to-primary-solid/80 rounded-2xl blur opacity-75 group-hover:opacity-100 transition-opacity -z-10' />
-                            </motion.button>
+                            </Button>
 
-                            <motion.button
-                                className='group cursor-pointer px-8 py-4 bg-canvas-bg text-canvas-text-contrast font-semibold rounded-2xl border border-canvas-line hover:border-primary-border hover:bg-primary-bg-subtle transition-all duration-300 flex items-center gap-3'
+                            <Link
+                                href='https://github.com/silverthreadlabs/bloggen-saas-starter-supabase'
+                                target='_blank'
+                                rel='noopener noreferrer'
+                            >
+                                <Button
+                                    className='group cursor-pointer font-semibold border flex items-center gap-3 px-8 py-4 rounded-2xl bg-canvas-bg text-canvas-text-contrast border-canvas-line hover:border-primary-border hover:bg-primary-bg-subtle transition-all duration-300'
+                                    color='neutral'
+                                    variant='surface'
+                                    size='lg'
+                                    leadingIcon={<FaGithub className='w-4 h-4' />}
                                 >
-                                <FaGithub className='w-4 h-4' />
-                                View on GitHub
-                                <div className='text-canvas-text text-sm bg-canvas-bg-subtle px-2 py-1 rounded-full'>
-                                    2.5k ⭐
-                                </div>
-                            </motion.button>
+                                    View on GitHub
+                                    <div className='text-canvas-text text-sm bg-canvas-bg-subtle px-2 py-1 rounded-full'>
+                                        2.5k ⭐
+                                    </div>
+                                </Button>
+                            </Link>
                         </motion.div>
 
                         {/* Command Line */}

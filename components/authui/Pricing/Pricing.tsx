@@ -8,6 +8,7 @@ import { getErrorRedirect } from '@/utils/helpers';
 import cn from 'classnames';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
+import Link from 'next/link';
 
 type Subscription = Tables<'subscriptions'>;
 type Product = Tables<'products'>;
@@ -215,10 +216,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                     <div
                       key={product.id}
                       className={cn(
-                        'relative group flex-1 min-w-[320px] max-w-[400px] flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border border-canvas-border/50 hover:border-primary-solid/40',
-                        {
-                          // No special border for popular/current plan
-                        }
+                        'relative group flex-1 min-w-[320px] max-w-[400px] flex flex-col bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm rounded-3xl p-8 transition-all duration-300 transform border border-canvas-border/50 hover:border-primary-solid/40 h-full max-h-[687px]'
                       )}
                     >
                       {/* Popular Badge */}
@@ -239,7 +237,7 @@ export default function Pricing({ user, products, subscription, variant = 'defau
                         </div>
                       )}
 
-                      <div className="flex-1">
+                      <div className="flex-1 flex flex-col min-h-[300px]">
                         {/* Plan Header */}
                         <div className="mb-8">
                           <div className="flex items-center justify-between mb-4">
@@ -296,9 +294,115 @@ export default function Pricing({ user, products, subscription, variant = 'defau
 
                       {/* Hover Effect */}
                       <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+
+                      {/* Feature List */}
+                      <div className="mt-6 pt-6 border-t border-canvas-border">
+                        <ul className="space-y-2">
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Full access to all features
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            24/7 Customer Support
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            99.99% Uptime Guarantee
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            GDPR Compliant
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            API Access
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Secure Data Encryption
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Easy Integrations
+                          </li>
+                          <li className="flex items-center text-sm text-canvas-text">
+                            <svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Priority Email Support
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   );
                 })}
+                {/* Enterprise Card */}
+                <div className="relative group flex-1 min-w-[320px] max-w-[400px] flex flex-col p-8 rounded-3xl bg-gradient-to-br from-canvas-bg-subtle/90 via-canvas-bg-subtle/70 to-canvas-bg-subtle/50 backdrop-blur-sm border border-canvas-border/50 hover:border-primary-solid/40 h-full max-h-[687px]">
+                  <div className="flex flex-col h-full">
+                    <div className="flex-1 flex flex-col min-h-[300px]">
+                      <div className="mb-8">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-2xl font-bold text-canvas-text-contrast">ENTERPRISE</h3>
+                          <div className="w-12 h-12 bg-gradient-to-br from-primary-solid/20 to-primary-solid/10 rounded-xl flex items-center justify-center">
+                            <svg className="w-6 h-6 text-primary-solid" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                        <p className="text-canvas-text leading-relaxed text-base">
+                          For large-scale applications running Internet scale workloads.
+                        </p>
+                      </div>
+                      <div className="mb-8">
+                        <div className="flex items-baseline mb-3">
+                          <span className="text-5xl font-black text-canvas-text-contrast">Custom</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-auto">
+                      <Link href="/contact" passHref legacyBehavior>
+                        <Button
+                          color="neutral"
+                          variant="outline"
+                          size="lg"
+                          fullWidth
+                          type="button"
+                          className="!cursor-pointer mb-6"
+                        >
+                          Contact Us
+                        </Button>
+                      </Link>
+                    </div>
+                    <div className="pt-6 border-t border-canvas-border">
+                      <ul className="space-y-2">
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Full access to all features</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Priority Email Support</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Designated Support manager</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Uptime SLAs</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>BYO Cloud supported</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>24x7x365 premium enterprise support</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Private Slack channel</li>
+                        <li className="flex items-center text-sm text-canvas-text"><svg className="w-4 h-4 mr-2 text-success-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Custom Security Questionnaires</li>
+                      </ul>
+                    </div>
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-solid/5 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

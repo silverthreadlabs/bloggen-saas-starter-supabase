@@ -6,7 +6,6 @@ import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
 import Banner from '@/components/layout/banner/banner';
 import Footer from '@/components/layout/footer/footer';
-import Header from '@/components/layout/header/header';
 import { env } from '@/lib/utils/env';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
@@ -48,7 +47,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     disableTransitionOnChange>
                     <main className='from-canvas-bg to-canvas-bg-base flex flex-auto flex-col items-center bg-gradient-to-b md:px-0'>
                         <Banner />
-                        {/* <Header /> */}
                         <Navbar/>
                         <RootProvider>{children}</RootProvider>
                         <Footer />

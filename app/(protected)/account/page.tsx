@@ -1,6 +1,8 @@
+
 import CustomerPortalForm from '@/components/authui/AccountForms/CustomerPortalForm';
 import EmailForm from '@/components/authui/AccountForms/EmailForm';
 import NameForm from '@/components/authui/AccountForms/NameForm';
+import SignOutButton from '@/components/authui/AccountForms/SignOutButton';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import {
@@ -71,6 +73,7 @@ export default async function Account() {
                 <NameForm userName={userDetails?.full_name ?? ''} />
                 <EmailForm userEmail={user.email} />
               </div>
+              <SignOutButton />
             </div>
           </div>
         </div>
