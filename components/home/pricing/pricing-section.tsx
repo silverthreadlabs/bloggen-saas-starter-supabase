@@ -151,7 +151,7 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                   className={`
                     relative group transition-all duration-300
                     flex-1 min-w-[320px] max-w-[400px] flex flex-col p-8 rounded-3xl
-                    bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md h-[540px]
+                    bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md h-[560px]
                   `}
                 >
                   {/* Current Plan Badge */}
@@ -221,6 +221,7 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                 </motion.div>
               );
             })}
+            
             {/* Enterprise Card */}
             <motion.div
               key="enterprise"
@@ -230,7 +231,7 @@ export default function HomePricingSection({ products, user, subscription }: Pro
               className={`
                 relative group transition-all duration-300
                 flex-1 min-w-[320px] max-w-[400px] flex flex-col p-8 rounded-3xl
-                bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md h-[540px]
+                bg-canvas-bg-subtle border-canvas-border border shadow-sm hover:shadow-md h-[560px]
               `}
             >
               <div className="flex flex-col h-full">
@@ -248,6 +249,9 @@ export default function HomePricingSection({ products, user, subscription }: Pro
                       <span className="text-canvas-text-contrast text-5xl font-bold">Custom</span>
                     </div>
                   </div>
+                  {billingInterval === 'year' && (
+                    <div className="h-12" />
+                  )}
                 </div>
                 <div className="mt-auto">
                   <Link href="/contact">
